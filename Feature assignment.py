@@ -1,20 +1,24 @@
 import numpy as np
 import pandas as pd
 
-dir = "XXX/"
-basename = "XXX"
+dir = "XXX/" #specify the dictory path
+basename = "XXX" #extract the filename from a full path
 
 Flag = 1
 # 0:Total loading is variable.
 # 1:Total loading is constant.
 
 # Data loading
-df_descriptor = pd.read_csv(dir + "xenonpy_normalized.csv", index_col=0)
+df_descriptor = pd.read_csv(dir + "xenonpy_normalized.csv", index_col=0) 
+# it would point to a file name xenonpy_normalized.csv within the specific directory
+# index_col=0 tell pandas to use the first column of the CSV file as the index of the dataframe(row labels)
 df_perform = pd.read_csv(dir + basename + ".csv")
 df_perform = df_perform.drop(df_perform.columns[0], axis=1)
+#df.drop() used to delete rows or columns from a data frame axis = 0 means drop rows(default) axis = 1 means drop columns
 print(df_perform)
 
 desc_c = df_descriptor.columns.tolist()
+#df.columns retrieves the column names of the dataframe df. .tolist()converts the index object(which holds column names in pandas)
 perf_c = df_perform.columns.tolist()
 target = df_perform.iloc[:, -1]
 df_perform = df_perform.drop(df_perform.columns[-1], axis=1)
